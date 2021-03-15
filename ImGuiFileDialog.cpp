@@ -73,6 +73,8 @@ SOFTWARE.
 #include <algorithm>
 #include <iostream>
 
+#include"../../Choice/src/fontawesome.h"
+
 namespace IGFD
 {
 	// float comparisons
@@ -108,22 +110,22 @@ namespace IGFD
 #define cancelButtonString "Cancel"
 #endif // cancelButtonString
 #ifndef resetButtonString
-#define resetButtonString "R"
+#define resetButtonString ICON_FK_UNDO
 #endif // resetButtonString
 #ifndef drivesButtonString
 #define drivesButtonString "Drives"
 #endif // drivesButtonString
 #ifndef searchString
-#define searchString "Search :"
+#define searchString ICON_FK_SEARCH
 #endif // searchString
 #ifndef dirEntryString
-#define dirEntryString "[Dir]"
+#define dirEntryString ICON_FK_FOLDER
 #endif // dirEntryString
 #ifndef linkEntryString
 #define linkEntryString "[Link]"
 #endif // linkEntryString
 #ifndef fileEntryString
-#define fileEntryString "[File]"
+#define fileEntryString ICON_FK_FILE
 #endif // fileEntryString
 #ifndef fileNameString
 #define fileNameString "File Name :"
@@ -1283,16 +1285,6 @@ namespace IGFD
 
 	void IGFD::FileDialog::DrawSearchBar()
 	{
-		// search field
-		if (IMGUI_BUTTON(resetButtonString "##BtnImGuiFileDialogSearchField"))
-		{
-			ResetBuffer(SearchBuffer);
-			searchTag.clear();
-			ApplyFilteringOnFileList();
-		}
-		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip(buttonResetSearchString);
-		ImGui::SameLine();
 		ImGui::Text(searchString);
 		ImGui::SameLine();
 		ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x);
@@ -1311,16 +1303,11 @@ namespace IGFD
 
 		static ImGuiTableFlags flags = ImGuiTableFlags_SizingFixedFit | ImGuiTableFlags_RowBg |
 			ImGuiTableFlags_Hideable | ImGuiTableFlags_ScrollY |
-			ImGuiTableFlags_NoHostExtendY
-#ifndef USE_CUSTOM_SORTING_ICON
-			| ImGuiTableFlags_Sortable
-#endif // USE_CUSTOM_SORTING_ICON
-			;
-		if (ImGui::BeginTable("##fileTable", 4, flags, vSize))
+			ImGuiTableFlags_NoHostExtendY;
+		if (ImGui::BeginTable("##fileTable", 3, flags, vSize))
 		{
 			ImGui::TableSetupScrollFreeze(0, 1); // Make header always visible
 			ImGui::TableSetupColumn(m_HeaderFileName.c_str(), ImGuiTableColumnFlags_WidthStretch, -1, 0);
-			ImGui::TableSetupColumn(m_HeaderFileType.c_str(), ImGuiTableColumnFlags_WidthFixed, -1, 1);
 			ImGui::TableSetupColumn(m_HeaderFileSize.c_str(), ImGuiTableColumnFlags_WidthFixed, -1, 2);
 			ImGui::TableSetupColumn(m_HeaderFileDate.c_str(), ImGuiTableColumnFlags_WidthFixed, -1, 3);
 
@@ -1332,8 +1319,6 @@ namespace IGFD
 				{
 					if (sorts_specs->Specs->ColumnUserID == 0)
 						SortFields(SortingFieldEnum::FIELD_FILENAME, true);
-					else if (sorts_specs->Specs->ColumnUserID == 1)
-						SortFields(SortingFieldEnum::FIELD_TYPE, true);
 					else if (sorts_specs->Specs->ColumnUserID == 2)
 						SortFields(SortingFieldEnum::FIELD_SIZE, true);
 					else //if (sorts_specs->Specs->ColumnUserID == 3) => alwayd true for the moment, to uncomment if we add a fourth column
@@ -1403,10 +1388,7 @@ namespace IGFD
 						{
 							needToBreakTheloop = SelectableItem(i, infos, selected, str.c_str());
 						}
-						if (ImGui::TableNextColumn()) // file type
-						{
-							ImGui::Text("%s", infos.ext.c_str());
-						}
+						
 						if (ImGui::TableNextColumn()) // file size
 						{
 							if (infos.type != 'd')
@@ -1493,7 +1475,7 @@ namespace IGFD
 		{
 			if (vInfos.type == 'd')
 			{
-				if (ImGui::IsMouseDoubleClicked(0)) // 0 -> left mouse button double click
+				if (ImGui::IsMouseClicked(0)) // 0 -> left mouse button double click
 				{
 					m_PathClicked = SelectDirectory(vInfos); 
 				}
@@ -1596,7 +1578,7 @@ namespace IGFD
 			std::string selectedDirectory = FileNameBuffer;
 			if (!selectedDirectory.empty() && 
 				selectedDirectory != ".")
-				path += PATH_SEP + selectedDirectory;
+				path += selectedDirectory;
 		}
 
 		return path;

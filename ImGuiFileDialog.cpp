@@ -624,7 +624,7 @@ namespace IGFD
 			if (!g.NavDisableMouseHover && g.NavWindow == window && g.NavLayer == window->DC.NavLayerCurrent)
 			{
 				g.NavDisableHighlight = true;
-				SetNavID(id, window->DC.NavLayerCurrent, window->DC.NavFocusScopeIdCurrent);
+				//SetNavID(id, window->DC.NavLayerCurrent, window->DC.NavFocusScopeIdCurrent);
 			}
 		}
 		if (pressed)

@@ -73,8 +73,6 @@ SOFTWARE.
 #include <algorithm>
 #include <iostream>
 
-#include"../../Choice/src/fontawesome.h"
-
 namespace IGFD
 {
 	// float comparisons
@@ -110,22 +108,22 @@ namespace IGFD
 #define cancelButtonString "Cancel"
 #endif // cancelButtonString
 #ifndef resetButtonString
-#define resetButtonString ICON_FK_UNDO
+#define resetButtonString "R"
 #endif // resetButtonString
 #ifndef drivesButtonString
 #define drivesButtonString "Drives"
 #endif // drivesButtonString
 #ifndef searchString
-#define searchString ICON_FK_SEARCH
+#define searchString "Search"
 #endif // searchString
 #ifndef dirEntryString
-#define dirEntryString ICON_FK_FOLDER
+#define dirEntryString "[DIR] "
 #endif // dirEntryString
 #ifndef linkEntryString
 #define linkEntryString "[Link]"
 #endif // linkEntryString
 #ifndef fileEntryString
-#define fileEntryString ICON_FK_FILE
+#define fileEntryString "[FILE] "
 #endif // fileEntryString
 #ifndef fileNameString
 #define fileNameString "File Name :"
@@ -1475,7 +1473,7 @@ namespace IGFD
 		{
 			if (vInfos.type == 'd')
 			{
-				if (ImGui::IsMouseClicked(0)) // 0 -> left mouse button double click
+				if (ImGui::IsMouseDoubleClicked(0)) // 0 -> left mouse button double click
 				{
 					m_PathClicked = SelectDirectory(vInfos); 
 				}

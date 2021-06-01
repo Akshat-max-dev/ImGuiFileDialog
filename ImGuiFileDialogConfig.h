@@ -25,18 +25,18 @@
 // standar button
 //#define IMGUI_BUTTON ImGui::Button
 
-#include <FontAwesome.h>
+#include <IconsFontAwesome5.h>
 
 // locales string
 //#define createDirButtonString "+"
 //#define okButtonString " OK"
 //#define cancelButtonString " Cancel"
-#define resetButtonString ICON_FK_UNDO
+#define resetButtonString ICON_FA_UNDO
 //#define drivesButtonString "Drives"
-#define searchString ICON_FK_SEARCH
-#define dirEntryString ICON_FK_FOLDER
+#define searchString ICON_FA_SEARCH
+#define dirEntryString ICON_FA_FOLDER
 //#define linkEntryString "[LINK] "
-#define fileEntryString ICON_FK_FILE
+#define fileEntryString ICON_FA_FILE
 //#define fileNameString "File Name : "
 //#define dirNameString "Directory Path :"
 //#define buttonResetSearchString "Reset search"
